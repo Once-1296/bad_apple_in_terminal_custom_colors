@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    struct winsize w{};
+    struct winsize w;
     int termCols = 100;
     int termRows = 35;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
