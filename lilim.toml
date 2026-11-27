@@ -12,6 +12,7 @@ license = "gpl-3.0"
 author = "Once-1296"
 package_manager = "conan"
 tests = "none"
+dependency = []
 lilim_version = "v1.4.0"
 
 [extras]
