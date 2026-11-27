@@ -4,4 +4,4 @@
 find_package(OpenCV CONFIG REQUIRED)
 
 # Libraries linked by the project's targets.
-set(LILIM_DEPENDENCIES OpenCV::OpenCV)
+set(LILIM_DEPENDENCIES opencv::opencv)
