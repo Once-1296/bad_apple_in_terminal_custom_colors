@@ -10,10 +10,18 @@
 #include <print>
 #include <string>
 #include <string_view>
-#include <sys/ioctl.h>
 #include <thread>
+
+#if !defined(_WIN32)
+#include <sys/ioctl.h>
 #include <unistd.h>
-// hello
+#else
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
+
 namespace {
 
 std::atomic<bool> g_running{true};
@@ -63,6 +71,36 @@ void appendBg(std::string& out, Rgb c)
     out += "\033[48;2;" + std::to_string(c.r) + ";" + std::to_string(c.g) + ";" + std::to_string(c.b) + "m";
 }
 
+void queryTerminalSize(int& cols, int& rows)
+{
+    cols = 100;
+    rows = 35;
+#if !defined(_WIN32)
+    struct winsize w{};
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
+        if (w.ws_col > 0) {
+            cols = w.ws_col;
+        }
+        if (w.ws_row > 0) {
+            rows = w.ws_row;
+        }
+    }
+#else
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi{};
+    if (hOut != INVALID_HANDLE_VALUE && GetConsoleScreenBufferInfo(hOut, &csbi)) {
+        int winCols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        int winRows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+        if (winCols > 0) {
+            cols = winCols;
+        }
+        if (winRows > 0) {
+            rows = winRows;
+        }
+    }
+#endif
+}
+
 } // namespace
 
 int main(int argc, char* argv[])
@@ -106,17 +144,9 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    struct winsize w;
     int termCols = 100;
     int termRows = 35;
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
-        if (w.ws_col > 0) {
-            termCols = w.ws_col;
-        }
-        if (w.ws_row > 0) {
-            termRows = w.ws_row;
-        }
-    }
+    queryTerminalSize(termCols, termRows);
 
     int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
     int srcH = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
