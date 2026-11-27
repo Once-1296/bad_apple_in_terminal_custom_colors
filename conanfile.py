@@ -39,7 +39,7 @@ class BadAppleTerminal(ConanFile):
             "video",
         )
         for opt in opencv_off:
-            setattr(self.options["opencv/*"], opt, False)
+            setattr(self.options["opencv"], opt, False)
 
         # Keep ffmpeg minimal so it doesn't pull pulseaudio, x11, vaapi, vdpau, or heavy encoders
         ffmpeg_off = (
@@ -66,4 +66,4 @@ class BadAppleTerminal(ConanFile):
             "with_programs",
         )
         for opt in ffmpeg_off:
-            setattr(self.options["ffmpeg/*"], opt, False)
+            setattr(self.options["ffmpeg"], opt, False)
