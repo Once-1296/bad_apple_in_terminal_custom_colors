@@ -28,5 +28,5 @@ lilim_version = "v1.4.0"
   devcontainer = false
 
 [ci]
-  providers = ["gitlab"]
+  providers = ["github"]
   targets = ["linux-gcc", "linux-clang", "windows-msvc"]
