@@ -76,7 +76,7 @@ void queryTerminalSize(int& cols, int& rows)
     cols = 100;
     rows = 35;
 #if !defined(_WIN32)
-    struct winsize w{};
+    struct winsize w;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
         if (w.ws_col > 0) {
             cols = w.ws_col;
