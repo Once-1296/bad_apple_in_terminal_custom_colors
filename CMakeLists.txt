@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(bad-apple-terminal src/main.cpp)
 
 target_include_directories(bad-apple-terminal PRIVATE
-    /usr/include/opencv5
+    ${LILIM_DEPENDENCIES}
 )
 
 # Optional: only needed if libopencv_* are not in default linker search paths
