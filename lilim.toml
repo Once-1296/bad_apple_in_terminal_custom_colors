@@ -12,7 +12,6 @@ license = "gpl-3.0"
 author = "Once-1296"
 package_manager = "conan"
 tests = "none"
-dependency = []
 lilim_version = "v1.4.0"
 
 [extras]
@@ -30,3 +29,11 @@ lilim_version = "v1.4.0"
 [ci]
   providers = ["github"]
   targets = ["linux-gcc", "linux-clang", "windows-msvc"]
+
+[[dependency]]
+  name = "opencv"
+  version = "4.14.0"
+  conan = "opencv"
+  vcpkg = "opencv"
+  package = "OpenCV"
+  targets = ["OpenCV::OpenCV"]
