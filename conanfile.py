@@ -67,5 +67,5 @@ class BadAppleTerminal(ConanFile):
         )
         for opt in ffmpeg_off:
             setattr(self.options["ffmpeg"], opt, False)
-        setattr(self.options["opencv"],"with_dav1d",False)
-        setattr(self.options["opencv"],"with_openssl",False)
+        setattr(self.options["ffmpeg"],"with_libdav1d",False)
+        setattr(self.options["ffmpeg"],"with_ssl",False)

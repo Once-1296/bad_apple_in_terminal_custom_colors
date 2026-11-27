@@ -12,7 +12,7 @@
       "cacheVariables": {
         "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/conan_provider.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CONAN_INSTALL_ARGS" : "--build=never"
+        "CONAN_INSTALL_ARGS" : "--build=missing"
       }
     },
     { "name": "debug", "displayName": "Debug", "inherits": "base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
