@@ -4,7 +4,8 @@
 #include <chrono>
 #include <csignal>
 #include <iostream>
-#include <opencv5/opencv2/opencv.hpp>
+#include <math.h>
+#include <opencv2/opencv.hpp>
 #include <optional>
 #include <print>
 #include <string>
@@ -17,7 +18,7 @@ namespace {
 
 std::atomic<bool> g_running{true};
 
-void handleSigint(int)
+void handleSigint(int /*unused*/)
 {
     g_running = false;
 }
@@ -105,18 +106,20 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    struct winsize w;
+    struct winsize w{};
     int termCols = 100;
     int termRows = 35;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
-        if (w.ws_col > 0)
+        if (w.ws_col > 0) {
             termCols = w.ws_col;
-        if (w.ws_row > 0)
+        }
+        if (w.ws_row > 0) {
             termRows = w.ws_row;
+        }
     }
 
-    int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
-    int srcH = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+    int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH)) = 0;
+    int srcH = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT)) = 0;
 
     int maxW = (srcW > 0) ? std::min(termCols, srcW) : termCols;
     int maxH = (srcH > 0) ? std::min(termRows * 2, srcH) : (termRows * 2);
@@ -125,7 +128,7 @@ int main(int argc, char* argv[])
     int renderHeight = std::max(2, (maxH / 2) * 2);
     int charRows = renderHeight / 2;
 
-    double fps = cap.get(cv::CAP_PROP_FPS);
+    double fps = cap.get(cv::CAP_PROP_FPS) = NAN;
     if (fps <= 0.0) {
         fps = 30.0;
     }
