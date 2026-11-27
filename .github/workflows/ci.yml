@@ -52,3 +52,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: git ls-files '*.cpp' '*.hpp' '*.h' '*.cc' | xargs clang-format --dry-run --Werror
+
+  tidy:
+    name: clang-tidy
+    runs-on: ubuntu-24.04
+    env: { CC: clang, CXX: clang++ }
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install conan ninja
+      - run: cmake --preset debug
+      - run: run-clang-tidy -p build/debug -quiet "$(pwd)/(src|include|libs|apps|tests)/"

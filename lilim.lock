@@ -2,8 +2,10 @@
 
 [managed]
 ".clang-format" = "sha256:5f2283f21f26084f64b04783d761a526c4c45fbe65edc3181c0c72b1ae4ccb25"
+".clang-tidy" = "sha256:2a17f4addb7d6c75068164db4649be318667ebef09e9162599b6f13a1fc0692c"
 ".clangd" = "sha256:b1959903bd2329fb863e4cda2fdc1d9f8258fd76c46ab3f607f467aaad1f1a91"
-".github/workflows/ci.yml" = "sha256:63477e9b99cb5ad51181fff4bc8d6667dbc81b38fbd21244a05a7bd0baccba6b"
+".github/workflows/ci.yml" = "sha256:357234a886946777055c9a35cd897479530d90dbb5cdddfab76a6cc889d8bbf7"
+".pre-commit-config.yaml" = "sha256:965ec402199867b469b19126c4671417367e550d7a81a40e7b5859c467e4c349"
 "CMakePresets.json" = "sha256:745702102964e6bb8b70c3048dd6c4471827b0a044e685364fd2043ad1e50d3a"
 "cmake/Dependencies.cmake" = "sha256:7ef53fdc6e296609eeda41fcb8c603ce8d724e8c7dd4bbc2a7962fe8fd1cad5f"
 "cmake/Warnings.cmake" = "sha256:85afbc69775f0186535d4b6aa33078837d2f480b56a0ba0b1ce99233c4e0410b"

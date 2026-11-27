@@ -17,8 +17,8 @@ lilim_version = "v1.4.0"
 
 [extras]
   format = true
-  tidy = false
-  pre_commit = false
+  tidy = true
+  pre_commit = true
   sanitizers = true
   coverage = false
   bench = false
