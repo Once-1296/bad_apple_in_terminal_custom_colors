@@ -2,7 +2,7 @@
 # Installed automatically when CMake configures (cmake/conan_provider.cmake).
 from conan import ConanFile
 
-class BadAppleTerminalRecipe(ConanFile):
+class BadAppleTerminal(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeConfigDeps"
 
