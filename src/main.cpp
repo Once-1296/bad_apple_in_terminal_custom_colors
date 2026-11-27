@@ -2,9 +2,9 @@
 #include <atomic>
 #include <charconv>
 #include <chrono>
+#include <cmath>
 #include <csignal>
 #include <iostream>
-#include <math.h>
 #include <opencv2/opencv.hpp>
 #include <optional>
 #include <print>
@@ -84,8 +84,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    Rgb darkColor{0, 0, 0};
-    Rgb lightColor{255, 255, 255};
+    Rgb darkColor{.r = 0, .g = 0, .b = 0};
+    Rgb lightColor{.r = 255, .g = 255, .b = 255};
 
     if (argc - argIdx >= 2) {
         auto parsedDark = parseHexColor(argv[argIdx]);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    struct winsize w{};
+    struct winsize w;
     int termCols = 100;
     int termRows = 35;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
@@ -118,8 +118,8 @@ int main(int argc, char* argv[])
         }
     }
 
-    int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH)) = 0;
-    int srcH = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT)) = 0;
+    int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
+    int srcH = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
 
     int maxW = (srcW > 0) ? std::min(termCols, srcW) : termCols;
     int maxH = (srcH > 0) ? std::min(termRows * 2, srcH) : (termRows * 2);
@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
     int renderHeight = std::max(2, (maxH / 2) * 2);
     int charRows = renderHeight / 2;
 
-    double fps = cap.get(cv::CAP_PROP_FPS) = NAN;
+    double fps = cap.get(cv::CAP_PROP_FPS);
     if (fps <= 0.0) {
         fps = 30.0;
     }
@@ -136,7 +136,8 @@ int main(int argc, char* argv[])
 
     std::cout << "\033[?1049h\033[2J\033[?25l" << std::flush;
 
-    cv::Mat frame, resized;
+    cv::Mat frame;
+    cv::Mat resized;
     std::string output;
     output.reserve(static_cast<std::size_t>(renderWidth) * static_cast<std::size_t>(charRows) * 24);
 
