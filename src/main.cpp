@@ -4,6 +4,7 @@
 #include <chrono>
 #include <csignal>
 #include <iostream>
+#include <opencv5/opencv2/opencv.hpp>
 #include <optional>
 #include <print>
 #include <string>
@@ -11,17 +12,18 @@
 #include <sys/ioctl.h>
 #include <thread>
 #include <unistd.h>
-#include <opencv5/opencv2/opencv.hpp>
 
 namespace {
 
 std::atomic<bool> g_running{true};
 
-void handleSigint(int) {
+void handleSigint(int)
+{
     g_running = false;
 }
 
-struct Rgb {
+struct Rgb
+{
     int r{0};
     int g{0};
     int b{0};
@@ -30,7 +32,8 @@ struct Rgb {
     bool operator!=(const Rgb&) const = default;
 };
 
-std::optional<Rgb> parseHexColor(std::string_view s) {
+std::optional<Rgb> parseHexColor(std::string_view s)
+{
     if (!s.empty() && s.front() == '#') {
         s.remove_prefix(1);
     }
@@ -49,17 +52,20 @@ std::optional<Rgb> parseHexColor(std::string_view s) {
     };
 }
 
-void appendFg(std::string& out, Rgb c) {
+void appendFg(std::string& out, Rgb c)
+{
     out += "\033[38;2;" + std::to_string(c.r) + ";" + std::to_string(c.g) + ";" + std::to_string(c.b) + "m";
 }
 
-void appendBg(std::string& out, Rgb c) {
+void appendBg(std::string& out, Rgb c)
+{
     out += "\033[48;2;" + std::to_string(c.r) + ";" + std::to_string(c.g) + ";" + std::to_string(c.b) + "m";
 }
 
 } // namespace
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     std::string videoPath;
     int argIdx = 1;
 
@@ -103,8 +109,10 @@ int main(int argc, char* argv[]) {
     int termCols = 100;
     int termRows = 35;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
-        if (w.ws_col > 0) termCols = w.ws_col;
-        if (w.ws_row > 0) termRows = w.ws_row;
+        if (w.ws_col > 0)
+            termCols = w.ws_col;
+        if (w.ws_row > 0)
+            termRows = w.ws_row;
     }
 
     int srcW = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
