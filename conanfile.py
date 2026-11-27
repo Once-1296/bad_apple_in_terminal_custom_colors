@@ -69,3 +69,4 @@ class BadAppleTerminal(ConanFile):
             setattr(self.options["ffmpeg"], opt, False)
         setattr(self.options["ffmpeg"],"with_libdav1d",False)
         setattr(self.options["ffmpeg"],"with_ssl",False)
+        setattr(self.options["ffmpeg"],"with_freetype",False)
