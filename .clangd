@@ -1,0 +1,4 @@
+# Managed by lilim. Tells clangd (in any editor) where the build's compile commands are,
+# after `cmake --preset debug`.
+CompileFlags:
+  CompilationDatabase: build/debug

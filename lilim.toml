@@ -1,0 +1,31 @@
+# lilim project manifest — `lilim add` / `lilim remove` edit this and
+# regenerate the files lilim manages. Edit by hand if you like, then run `lilim sync`.
+# Comments are not kept when lilim saves this file.
+
+manifest_version = 1
+name = "bad-apple-terminal"
+description = "bad apple in terminal"
+namespace = "bad_apple_terminal"
+kind = "exe"
+cxx_standard = 23
+license = "gpl-3.0"
+author = "Once-1296"
+package_manager = "conan"
+tests = "none"
+lilim_version = "v1.4.0"
+
+[extras]
+  format = true
+  tidy = false
+  pre_commit = false
+  sanitizers = false
+  coverage = false
+  bench = false
+  docs = false
+  packaging = false
+  release = false
+  devcontainer = false
+
+[ci]
+  providers = ["gitlab"]
+  targets = ["linux-gcc", "linux-clang", "windows-msvc"]

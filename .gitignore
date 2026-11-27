@@ -1,0 +1,15 @@
+# build trees (CMake presets) and install prefixes
+/build/
+/install/
+/out/
+CMakeUserPresets.json
+compile_commands.json
+.cache/
+
+# editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+*.orig
